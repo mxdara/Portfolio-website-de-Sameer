@@ -33,8 +33,3 @@ This personal website serves as a digital portfolio and online presence to showc
 - React Icons
 - EmailJS
 
-## Installation
-
-1. Clone this repository:
-   ```sh
-   git clone https://github.com/your-username/your-personal-website.git
