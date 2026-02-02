@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 const Section = styled.div`
   display: flex;
@@ -107,7 +106,7 @@ const Navbar = () => {
         </Links>
         <Icons>
           {/* Changed the image due to copyright problems */}
-          <Icon src="./img/search.png" />
+          <Icon src="/img/search.png" />
           <Button>Hire Now</Button>
         </Icons>
       </Container>

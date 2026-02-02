@@ -4,8 +4,6 @@ import Hero from "./components/Hero";
 import Who from "./components/Who";
 import Works from "./components/Works";
 
-import { BrowserRouter as Router } from "react-router-dom";
-
 const Container = styled.div`
   height: 100vh;
   scroll-snap-type: y mandatory;
@@ -13,7 +11,7 @@ const Container = styled.div`
   overflow-y: scroll;
   scrollbar-width: none;
   color: white;
-  background: url("./img/bg.jpeg");
+  background: url("/img/bg.jpeg");
   &::-webkit-scrollbar{
     display: none;
   }

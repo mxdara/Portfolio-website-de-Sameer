@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Navbar from "./Navbar";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Sphere, MeshDistortMaterial } from "@react-three/drei";
-import { BrowserRouter as Router } from 'react-router-dom';
 // import Routes from '../Routes';
 
 
@@ -136,7 +135,7 @@ const Hero = () => {
         <Left>
           <Title>Think. Make. Solve.</Title>
           <WhatWeDo>
-            <Line src="./img/line.png" />
+            <Line src="/img/line.png" />
             <Subtitle>What we Do</Subtitle>
           </WhatWeDo>
           <Desc>

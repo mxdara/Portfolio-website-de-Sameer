@@ -27,9 +27,7 @@ This personal website serves as a digital portfolio and online presence to showc
 
 - HTML5, CSS3
 - JavaScript (ES6+)
-- React.js
+- Next.js (React)
 - Styled Components
-- React Router
 - React Icons
 - EmailJS
-
