@@ -1,20 +1,22 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import Development from "./Development";
-import ProductDesign from "./ProductDesign";
-import WebDesign from "./WebDesign";
-import Publication from "./Publication";
-import SocialMedia from "./SocialMedia";
+'use client';
+
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import Development from './Development';
+import ProductDesign from './ProductDesign';
+import WebDesign from './WebDesign';
+import Publication from './Publication';
+import SocialMedia from './SocialMedia';
 
 const data = [
-  "Web Design",
-  "Development",
-  "Product Design",
-  "Publications",
-  "Social Media",
+  'Web Design',
+  'Development',
+  'Product Design',
+  'Publications',
+  'Social Media',
 ];
 
-const Section = styled.div`
+const Section = styled.section`
   height: 100vh;
   scroll-snap-align: center;
   display: flex;
@@ -23,16 +25,24 @@ const Section = styled.div`
   color: black;
   font-size: 14px;
   font-weight: 300;
+  padding-top: 80px; /* Account for fixed navbar */
+
+  @media only screen and (max-width: 768px) {
+    height: auto;
+    min-height: 100vh;
+  }
 `;
 
 const Container = styled.div`
   width: 1400px;
   display: flex;
   justify-content: space-between;
+  padding: 0 20px;
 
   @media only screen and (max-width: 768px) {
     width: 100%;
     flex-direction: column;
+    padding: 20px;
   }
 `;
 
@@ -62,6 +72,7 @@ const ListItem = styled.li`
   color: transparent;
   -webkit-text-stroke: 1px white;
   position: relative;
+  transition: all 0.3s ease;
 
   @media only screen and (max-width: 768px) {
     font-size: 24px;
@@ -70,7 +81,7 @@ const ListItem = styled.li`
   }
 
   ::after {
-    content: "${(props) => props.text}";
+    content: '${(props) => props.text}';
     position: absolute;
     top: 0;
     left: 0;
@@ -78,29 +89,29 @@ const ListItem = styled.li`
     width: 0px;
     overflow: hidden;
     white-space: nowrap;
+    transition: width 0.5s ease;
   }
 
   &:hover {
     ::after {
-      animation: moveText 0.5s linear both;
-
-      @keyframes moveText {
-        to {
-          width: 100%;
-        }
-      }
+      width: 100%;
     }
   }
 `;
 
 const Right = styled.div`
   flex: 1;
+
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+    padding: 20px;
+  }
 `;
 
 const Works = () => {
-  const [work, setWork] = useState("Web Design");
+  const [work, setWork] = useState('Web Design');
   return (
-    <Section>
+    <Section id="works">
       <Container>
         <Left>
           <List>
@@ -118,13 +129,13 @@ const Works = () => {
           </List>
         </Left>
         <Right>
-          {work === "Web Design" ? (
+          {work === 'Web Design' ? (
             <WebDesign />
-          ) : work === "Development" ? (
+          ) : work === 'Development' ? (
             <Development />
-          ) : work === "Product Design" ? (
+          ) : work === 'Product Design' ? (
             <ProductDesign />
-          ) : work === "Publications" ? (
+          ) : work === 'Publications' ? (
             <Publication />
           ) : (
             <SocialMedia />
@@ -136,3 +147,4 @@ const Works = () => {
 };
 
 export default Works;
+

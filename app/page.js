@@ -1,0 +1,17 @@
+'use client';
+
+import Hero from './components/Hero';
+import Who from './components/Who';
+import Works from './components/Works';
+import Contact from './components/Contact';
+
+export default function Home() {
+  return (
+    <>
+      <Hero />
+      <Who />
+      <Works />
+      <Contact />
+    </>
+  );
+}

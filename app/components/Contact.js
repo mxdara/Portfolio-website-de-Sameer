@@ -1,11 +1,19 @@
-import React, { useRef, useState } from "react";
-import emailjs from "@emailjs/browser";
-import styled from "styled-components";
-import Map from "./Map";
+'use client';
 
-const Section = styled.div`
+import React, { useRef, useState } from 'react';
+import emailjs from '@emailjs/browser';
+import styled from 'styled-components';
+import Map from './Map';
+
+const Section = styled.section`
   height: 100vh;
   scroll-snap-align: center;
+  padding-top: 80px; /* Account for fixed navbar */
+
+  @media only screen and (max-width: 768px) {
+    height: auto;
+    min-height: 100vh;
+  }
 `;
 
 const Container = styled.div`
@@ -14,6 +22,12 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 50px;
+  padding: 0 20px;
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+    gap: 20px;
+  }
 `;
 
 const Left = styled.div`
@@ -21,13 +35,17 @@ const Left = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  
   @media only screen and (max-width: 768px) {
     justify-content: center;
+    padding: 20px 0;
   }
 `;
 
 const Title = styled.h1`
   font-weight: 200;
+  font-size: 48px;
+  margin-bottom: 20px;
 `;
 
 const Form = styled.form`
@@ -37,7 +55,8 @@ const Form = styled.form`
   gap: 25px;
 
   @media only screen and (max-width: 768px) {
-    width: 300px;
+    width: 100%;
+    max-width: 400px;
   }
 `;
 
@@ -46,6 +65,11 @@ const Input = styled.input`
   background-color: #e8e6e6;
   border: none;
   border-radius: 5px;
+  font-size: 16px;
+
+  &:focus {
+    outline: 2px solid #da4ea2;
+  }
 `;
 
 const TextArea = styled.textarea`
@@ -53,6 +77,12 @@ const TextArea = styled.textarea`
   border: none;
   border-radius: 5px;
   background-color: #e8e6e6;
+  font-size: 16px;
+  resize: vertical;
+
+  &:focus {
+    outline: 2px solid #da4ea2;
+  }
 `;
 
 const Button = styled.button`
@@ -63,6 +93,12 @@ const Button = styled.button`
   cursor: pointer;
   border-radius: 5px;
   padding: 20px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #c23e8f;
+  }
 `;
 
 const Right = styled.div`
@@ -82,10 +118,10 @@ const Contact = () => {
 
     emailjs
       .sendForm(
-        "service_id",
-        "template_id",
+        'service_id',
+        'template_id',
         ref.current,
-        "public_key"
+        'public_key'
       )
       .then(
         (result) => {
@@ -98,6 +134,7 @@ const Contact = () => {
         }
       );
   };
+
   return (
     <Section id="contact">
       <Container>
@@ -112,8 +149,16 @@ const Contact = () => {
               rows={10}
             />
             <Button type="submit">Send</Button>
-            {success &&
-              "Your message has been sent. We'll get back to you soon :)"}
+            {success !== null && (
+              <span style={{ 
+                color: success ? 'green' : 'red',
+                marginTop: '10px' 
+              }}>
+                {success 
+                  ? 'Your message has been sent. We\'ll get back to you soon :)' 
+                  : 'Something went wrong. Please try again.'}
+              </span>
+            )}
           </Form>
         </Left>
         <Right>
@@ -125,3 +170,4 @@ const Contact = () => {
 };
 
 export default Contact;
+

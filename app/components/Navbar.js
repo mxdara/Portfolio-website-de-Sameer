@@ -1,10 +1,19 @@
-import React from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
+'use client';
+
+import React from 'react';
+import styled from 'styled-components';
+import Link from 'next/link';
 
 const Section = styled.div`
   display: flex;
   justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
 
   @media only screen and (max-width: 768px) {
     width: 100%;
@@ -46,7 +55,11 @@ const List = styled.ul`
 
 const ListItem = styled.li`
   cursor: pointer;
+  transition: color 0.3s ease;
 
+  &:hover {
+    color: #da4ea2;
+  }
 `;
 
 const Icons = styled.div`
@@ -68,6 +81,11 @@ const Button = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #c23e8f;
+  }
 `;
 
 const Navbar = () => {
@@ -75,37 +93,22 @@ const Navbar = () => {
     <Section>
       <Container>
         <Links>
-          {/* <Logo src="./img/logo.png" /> */}
-          {/* <List>
-            <ListItem>
-              <Link to="/">Home</Link>
-            </ListItem>
-            <ListItem>
-              <Link to="/Studio">Studio</Link>
-            </ListItem>
-            <ListItem>
-              <Link to="/Works">Works</Link>
-            </ListItem>
-            <ListItem>
-              <Link to="Contact">Contact</Link>
-            </ListItem>
-          </List> */}
+          {/* <Logo src="/img/logo.png" /> */}
           <List>
             <ListItem>
-              Home
+              <Link href="/">Home</Link>
             </ListItem>
             <ListItem>
-              Studio
+              <Link href="/studio">Studio</Link>
             </ListItem>
             <ListItem>
-              Works
+              <Link href="/works">Works</Link>
             </ListItem>
           </List>
         </Links>
         <Icons>
-          {/* Changed the image due to copyright problems */}
-          <Icon src="./img/search.png" />
-          <Button>Contact now </Button>
+          {/* <Icon src="/img/search.png" /> */}
+          <Button>Contact now</Button>
         </Icons>
       </Container>
     </Section>
@@ -113,3 +116,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

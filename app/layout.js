@@ -1,0 +1,21 @@
+import Navbar from './components/Navbar';
+import StyledComponentsRegistry from '../lib/registry';
+import './globals.css';
+
+export const metadata = {
+  title: 'Portfolio de Sameer',
+  description: 'Creative designer and developer portfolio',
+};
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>
+        <StyledComponentsRegistry>
+          <Navbar />
+          {children}
+        </StyledComponentsRegistry>
+      </body>
+    </html>
+  );
+}
