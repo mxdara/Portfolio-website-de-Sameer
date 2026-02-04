@@ -12,11 +12,10 @@ export default function Aphrodite(props) {
         geometry={nodes.Rz_123_Afrodyta_z_Melos_119K_0.geometry}
         material={materials.defaultMat}
         position={[18.663, 112.118, 1]}
-        rotation={[0, -1, -0.2]}
+        rotation={[0, -1.7, 0]}
       />
     </group>
   );
 }
 
 useGLTF.preload('/aphrodite-transformed.glb');
-

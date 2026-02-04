@@ -107,11 +107,17 @@ const Button = styled.button`
 const Right = styled.div`
   flex: 3;
   position: relative;
+  width: 100%;
+  min-height: 420px;
+  height: 60vh;
+  overflow: hidden;
+  border-radius: 24px;
   
   @media only screen and (max-width: 768px) {
     flex: 1;
     width: 100%;
     height: 300px;
+    min-height: 300px;
   }
 `;
 
@@ -131,16 +137,19 @@ const Hero = () => {
           <Button>Learn More</Button>
         </Left>
         <Right>
-          <Canvas>
+          <Canvas
+            camera={{ position: [0, 0, 7], fov: 55 }}
+            style={{ width: '100%', height: '100%', display: 'block' }}
+          >
             <Suspense fallback={null}>
               <OrbitControls enableZoom={false} />
-              <ambientLight intensity={1} />
-              <directionalLight position={[3, 2, 1]} />
-              <Sphere args={[1, 100, 200]} scale={2.4}>
+              <ambientLight intensity={1.35} />
+              <directionalLight position={[4, 3, 2]} intensity={1.25} />
+              <Sphere args={[1, 100, 200]} scale={2.3}>
                 <MeshDistortMaterial
-                  color="#3d1c56"
+                  color="#6d2f8e"
                   attach="material"
-                  distort={0.5}
+                  distort={0.4}
                   speed={2}
                 />
               </Sphere>
@@ -153,4 +162,3 @@ const Hero = () => {
 };
 
 export default Hero;
-

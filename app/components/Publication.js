@@ -1,52 +1,43 @@
-'use client';
+import React, { Suspense } from "react";
+import { OrbitControls, Stage } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import Aphrodite from "./Aphrodite";
+import styled from "styled-components";
 
-import React from 'react';
-import styled from 'styled-components';
-
-const Container = styled.div`
-  width: 100%;
-  height: 400px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  border-radius: 20px;
-  padding: 40px;
-  color: white;
-  text-align: center;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+const Desc = styled.div`
+  width: 200px;
+  height: 70px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  position: absolute;
+  bottom: 200px;
+  right: 100px;
 
   @media only screen and (max-width: 768px) {
-    height: auto;
-    padding: 30px 20px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
   }
 `;
-
-const Title = styled.h3`
-  font-size: 28px;
-  margin-bottom: 20px;
-  font-weight: 600;
-`;
-
-const Description = styled.p`
-  font-size: 16px;
-  line-height: 1.6;
-  max-width: 600px;
-`;
-
 const Publication = () => {
   return (
-    <Container>
-      <Title>Publications</Title>
-      <Description>
-        We share our knowledge through articles, papers, and talks.
-        Our research contributes to the advancement of design and technology
-        in the industry.
-      </Description>
-    </Container>
-  );
-};
+    <>
+     <Canvas>
+        <Suspense fallback={null}>
+          <Stage environment="city" intensity={0.6}>
+            <Aphrodite />
+          </Stage>
+          <OrbitControls enableZoom={false} autoRotate />
+        </Suspense>
+      </Canvas>
+      <Desc>
+        Loren ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+      </Desc>
+    </>
+  )
+}
 
-export default Publication;
-
+export default Publication

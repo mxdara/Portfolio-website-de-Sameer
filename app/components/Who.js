@@ -32,6 +32,10 @@ const Container = styled.div`
 
 const Left = styled.div`
   flex: 1;
+  position: relative;
+  width: 100%;
+  min-height: 420px;
+  height: 60vh;
 
   @media only screen and (max-width: 768px) {
     display: none;
@@ -105,10 +109,11 @@ const Who = () => {
     <Section>
       <Container>
         <Left>
-          <Canvas camera={{ position: [5, 5, 5], fov: 25 }}>
+          <Canvas camera={{ position: [5, 5, 5], fov: 25 }} style={{ width: '100%', height: '100%', display: 'block' }}>
             <Suspense fallback={null}>
-              <ambientLight intensity={0.5} />
-              <directionalLight position={[3, 2, 1]} />
+              <ambientLight intensity={1} />
+              <directionalLight position={[3, 2, 1]} intensity={1.6} />
+              <pointLight position={[-2, 1.5, 3]} intensity={0.9} />
               <Cube />
               <OrbitControls enableZoom={false} autoRotate />
             </Suspense>
@@ -131,4 +136,3 @@ const Who = () => {
 };
 
 export default Who;
-

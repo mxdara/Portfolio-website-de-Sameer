@@ -1,29 +1,22 @@
 'use client';
 
 import React from 'react';
-import {
-  ComposableMap,
-  Geographies,
-  Geography,
-  Annotation,
-  ZoomableGroup
-} from 'react-simple-maps';
-
-const geoUrl = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json';
+import { ComposableMap, Geographies, Geography, Annotation } from 'react-simple-maps';
 
 const Map = () => {
   return (
     <ComposableMap
       projection="geoAzimuthalEqualArea"
       projectionConfig={{
-        rotate: [-73.5673, -45.5017, 0],
+        // Center the projection around Montreal, Canada (lon, lat).
+        rotate: [73.5673, -45.5017, 0],
         center: [0, 0],
-        scale: 2300
+        scale: 1800
       }}
       style={{ width: '100%', height: '100%' }}
     >
       <Geographies
-        geography={geoUrl}
+        geography="/features.json"
         fill="#2C065D"
         stroke="#FFFFFF"
         strokeWidth={0.5}
@@ -49,9 +42,8 @@ const Map = () => {
           textAnchor="end"
           alignmentBaseline="middle"
           fill="white"
-          style={{ fontFamily: 'system-ui', fontSize: 14 }}
         >
-          {'Montreal'}
+          {'Montreal, Canada'}
         </text>
       </Annotation>
     </ComposableMap>
@@ -59,4 +51,3 @@ const Map = () => {
 };
 
 export default Map;
-

@@ -1,51 +1,52 @@
 'use client';
 
-import React from 'react';
-import styled from 'styled-components';
+import React, { useMemo } from "react";
+import { Line, Sphere } from "@react-three/drei";
+import { EffectComposer, Bloom } from "@react-three/postprocessing";
+import * as THREE from "three";
 
-const Container = styled.div`
-  width: 100%;
-  height: 400px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-  border-radius: 20px;
-  padding: 40px;
-  color: white;
-  text-align: center;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-
-  @media only screen and (max-width: 768px) {
-    height: auto;
-    padding: 30px 20px;
-  }
-`;
-
-const Title = styled.h3`
-  font-size: 28px;
-  margin-bottom: 20px;
-  font-weight: 600;
-`;
-
-const Description = styled.p`
-  font-size: 16px;
-  line-height: 1.6;
-  max-width: 600px;
-`;
+// You can draw the shape in this way if you do not want to import a ready-to-use 3D model.
+const Shape = () => {
+  const points = useMemo(
+    () =>
+      new THREE.EllipseCurve(0, 0, 3, 1.15, 0, 2 * Math.PI, false, 0).getPoints(
+        100
+      ),
+    []
+  );
+  return (
+    <group>
+      <Line worldUnits points={points} color="#cae6f1" lineWidth={0.3} />
+      <Line
+        worldUnits
+        points={points}
+        color="#cae6f1"
+        lineWidth={0.3}
+        rotation={[0, 0, 1]}
+      />
+      <Line
+        worldUnits
+        points={points}
+        color="#cae6f1"
+        lineWidth={0.3}
+        rotation={[0, 0, -1]}
+      />
+      <Sphere args={[0.55, 64, 64]}>
+        <meshBasicMaterial color={[6, 0.5, 2]} toneMapped={false} />
+      </Sphere>
+    </group>
+  );
+};
 
 const Atom = () => {
   return (
-    <Container>
-      <Title>Atomic Design</Title>
-      <Description>
-        We follow atomic design principles to create modular, reusable components
-        that scale with your business needs.
-      </Description>
-    </Container>
+    <>
+      <Shape />
+      <EffectComposer>
+        <Bloom mipmapBlur luminanceThreshold={1} radius={0.7} />
+      </EffectComposer>
+    </>
   );
 };
 
 export default Atom;
-

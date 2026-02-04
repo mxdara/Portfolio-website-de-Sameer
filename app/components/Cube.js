@@ -11,7 +11,7 @@ const Cube = () => {
       (textRef.current.position.x = Math.sin(state.clock.elapsedTime) * 2)
   );
   return (
-    <mesh>
+    <mesh scale={1.92}>
       <boxGeometry />
       <meshStandardMaterial>
         <RenderTexture attach="map">
@@ -27,4 +27,3 @@ const Cube = () => {
 };
 
 export default Cube;
-
