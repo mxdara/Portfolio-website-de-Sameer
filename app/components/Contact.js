@@ -1,7 +1,6 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
-import emailjs from '@emailjs/browser';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Map from './Map';
 
@@ -72,6 +71,15 @@ const Input = styled.input`
   }
 `;
 
+const Honeypot = styled.input`
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+`;
+
 const TextArea = styled.textarea`
   padding: 20px;
   border: none;
@@ -110,53 +118,71 @@ const Right = styled.div`
 `;
 
 const Contact = () => {
-  const ref = useRef();
-  const [success, setSuccess] = useState(null);
+  const [status, setStatus] = useState('idle'); // idle | sending | success | error
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setStatus('sending');
+    setErrorMessage('');
 
-    emailjs
-      .sendForm(
-        'service_id',
-        'template_id',
-        ref.current,
-        'public_key'
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-          setSuccess(true);
-        },
-        (error) => {
-          console.log(error.text);
-          setSuccess(false);
-        }
-      );
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const payload = {
+      name: String(data.get('name') || '').trim(),
+      email: String(data.get('email') || '').trim(),
+      message: String(data.get('message') || '').trim(),
+      website: String(data.get('website') || '').trim(), // honeypot
+    };
+
+    fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    })
+      .then(async (res) => {
+        const json = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(json?.error || 'Something went wrong.');
+        setStatus('success');
+        form.reset();
+      })
+      .catch((err) => {
+        console.error(err);
+        setStatus('error');
+        setErrorMessage(err?.message || 'Something went wrong.');
+      });
   };
 
   return (
     <Section id="contact">
       <Container>
         <Left>
-          <Form ref={ref} onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit}>
             <Title>Contact Us</Title>
             <Input placeholder="Name" name="name" />
             <Input placeholder="Email" name="email" />
+            <Honeypot
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              name="website"
+            />
             <TextArea
               placeholder="Write your message"
               name="message"
               rows={10}
             />
-            <Button type="submit">Send</Button>
-            {success !== null && (
-              <span style={{ 
-                color: success ? 'green' : 'red',
-                marginTop: '10px' 
-              }}>
-                {success 
-                  ? 'Your message has been sent. We\'ll get back to you soon :)' 
-                  : 'Something went wrong. Please try again.'}
+            <Button type="submit" disabled={status === 'sending'}>
+              {status === 'sending' ? 'Sending…' : 'Send'}
+            </Button>
+            {status === 'success' && (
+              <span style={{ color: 'green', marginTop: '10px' }}>
+                Your message has been sent. We'll get back to you soon :)
+              </span>
+            )}
+            {status === 'error' && (
+              <span style={{ color: 'red', marginTop: '10px' }}>
+                {errorMessage || 'Something went wrong. Please try again.'}
               </span>
             )}
           </Form>
@@ -170,4 +196,3 @@ const Contact = () => {
 };
 
 export default Contact;
-
